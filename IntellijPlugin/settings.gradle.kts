@@ -1,0 +1,1 @@
+rootProject.name = "struts_no_more"
