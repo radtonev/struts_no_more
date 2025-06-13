@@ -1,0 +1,1 @@
+Verify this Java source code contains field with name {{fieldName}} and type {{fieldType}}.
