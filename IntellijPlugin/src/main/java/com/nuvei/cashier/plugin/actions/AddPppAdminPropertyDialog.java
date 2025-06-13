@@ -1,4 +1,4 @@
-package com.safecharge.strutsnomore.plugin.actions;
+package com.nuvei.cashier.plugin.actions;
 
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -7,11 +7,12 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
-import static com.safecharge.strutsnomore.plugin.utils.ValidationUtils.javaFieldNameVerifier;
+import static com.nuvei.cashier.plugin.utils.ValidationUtils.javaFieldNameVerifier;
 
 public class AddPppAdminPropertyDialog extends DialogWrapper {
 
     private final JTextField propertyNameField = new JTextField();
+    private final JTextField hintField = new JTextField();
     private final JCheckBox cachedCheckbox = new JCheckBox("Cached");
     private final JComboBox<String> propertyTypeComboBox = new ComboBox<>(new String[]{"String", "Integer", "Boolean", "Date"});
     private final String className;
@@ -35,6 +36,11 @@ public class AddPppAdminPropertyDialog extends DialogWrapper {
         return cachedCheckbox.isSelected();
     }
 
+    public void validateField() {
+        if(!propertyNameField.isValid()) throw new RuntimeException( "Invalid property name");
+        if(!hintField.isValid()) throw new RuntimeException("Invalid hint field");
+    }
+
     @Override
     protected @Nullable JComponent createCenterPanel() {
         JPanel panel = new JPanel();
@@ -49,6 +55,13 @@ public class AddPppAdminPropertyDialog extends DialogWrapper {
         propertyNameField.setToolTipText("Enter the name of the property to be added.");
         propertyNameField.setInputVerifier(javaFieldNameVerifier);
         panel.add(propertyPanel);
+
+        // Property Name Field
+        JPanel hintPanel = new JPanel(new BorderLayout());
+        hintPanel.add(new JLabel("Hint contents:"), BorderLayout.WEST);
+        hintPanel.add(hintField, BorderLayout.CENTER);
+        hintField.setToolTipText("Enter the contents of the hint of the property.");
+        panel.add(hintPanel);
 
         // Cached Checkbox
         JPanel cachedPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -65,5 +78,4 @@ public class AddPppAdminPropertyDialog extends DialogWrapper {
 
         return panel;
     }
-
 }

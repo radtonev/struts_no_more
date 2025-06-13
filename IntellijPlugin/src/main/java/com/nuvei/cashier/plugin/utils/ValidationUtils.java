@@ -1,4 +1,4 @@
-package com.safecharge.strutsnomore.plugin.utils;
+package com.nuvei.cashier.plugin.utils;
 
 import javax.swing.*;
 
