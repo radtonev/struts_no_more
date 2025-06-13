@@ -2,19 +2,19 @@ package com.nuvei.cashier.plugin.actions;
 
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.DialogWrapper;
+import com.nuvei.cashier.plugin.utils.ValidationUtils;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static com.nuvei.cashier.plugin.utils.ValidationUtils.javaFieldNameVerifier;
-
 public class AddPppAdminPropertyDialog extends DialogWrapper {
 
     private final JTextField propertyNameField = new JTextField();
     private final JTextField hintField = new JTextField();
+    private final JTextField storyNumberField = new JTextField();
     private final JCheckBox cachedCheckbox = new JCheckBox("Cached");
-    private final JComboBox<String> propertyTypeComboBox = new ComboBox<>(new String[]{"String", "Integer", "Boolean", "Date"});
+    private final JComboBox<String> propertyTypeComboBox = new ComboBox<>(new String[]{"String", "Integer", "Checkbox"});
     private final String className;
 
     public AddPppAdminPropertyDialog(String className) {
@@ -22,6 +22,16 @@ public class AddPppAdminPropertyDialog extends DialogWrapper {
         this.className = className;
         setTitle("Add a New PPP Admin Property to " + className);
         init();
+    }
+
+    private static void createTextField(JPanel panel, JTextField textField, String label, String tooltip) {
+        JPanel propertyPanel = new JPanel();
+        propertyPanel.setLayout(new BoxLayout(propertyPanel, BoxLayout.X_AXIS));
+        propertyPanel.add(new JLabel(label));
+        propertyPanel.add(textField);
+        textField.setToolTipText(tooltip);
+        propertyPanel.add(textField);
+        panel.add(propertyPanel);
     }
 
     public String getPropertyName() {
@@ -36,9 +46,12 @@ public class AddPppAdminPropertyDialog extends DialogWrapper {
         return cachedCheckbox.isSelected();
     }
 
-    public void validateField() {
-        if(!propertyNameField.isValid()) throw new RuntimeException( "Invalid property name");
-        if(!hintField.isValid()) throw new RuntimeException("Invalid hint field");
+    public String getHint() {
+        return hintField.getText();
+    }
+
+    public String getStoryNumber() {
+        return storyNumberField.getText();
     }
 
     @Override
@@ -48,20 +61,11 @@ public class AddPppAdminPropertyDialog extends DialogWrapper {
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.setMinimumSize(new Dimension(400, panel.getMinimumSize().height));
 
-        // Property Name Field
-        JPanel propertyPanel = new JPanel(new BorderLayout());
-        propertyPanel.add(new JLabel("Property Name:"), BorderLayout.WEST);
-        propertyPanel.add(propertyNameField, BorderLayout.CENTER);
-        propertyNameField.setToolTipText("Enter the name of the property to be added.");
-        propertyNameField.setInputVerifier(javaFieldNameVerifier);
-        panel.add(propertyPanel);
-
-        // Property Name Field
-        JPanel hintPanel = new JPanel(new BorderLayout());
-        hintPanel.add(new JLabel("Hint contents:"), BorderLayout.WEST);
-        hintPanel.add(hintField, BorderLayout.CENTER);
-        hintField.setToolTipText("Enter the contents of the hint of the property.");
-        panel.add(hintPanel);
+        createTextField(panel, propertyNameField, "Property Name:", "Enter the name of the property to be added.");
+        createTextField(panel, hintField, "Hint contents:", "Enter the contents of the hint of the property.");
+        createTextField(panel, storyNumberField, "PBI number:", "Enter your story number");
+        ValidationUtils.attachPbiNumberValidator(this.getDisposable(), storyNumberField);
+        ValidationUtils.attachJavaFieldNameValidator(this.getDisposable(), propertyNameField);
 
         // Cached Checkbox
         JPanel cachedPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));

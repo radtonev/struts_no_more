@@ -14,22 +14,26 @@
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <!--  <description></description>-->
 
-
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
+
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <applicationConfigurable displayName="PPP Admin Settings"
+            instance="com.nuvei.cashier.plugin.settings.PluginSettingsConfigurable" />
+        <applicationService serviceImplementation="com.nuvei.cashier.plugin.settings.StrutsNoMoreSettings" />
     </extensions>
+
     <actions>
-        <action id="AddPppAdminPropertyAction"
-            class="com.nuvei.cashier.plugin.actions.AddPppAdminPropertyAction"
-            text="Add a New PPP Admin Property" description="Opens a dialog to add a new PPP admin property"
-            icon="/icons/addppp.png">
-            <add-to-group group-id="ProjectViewPopupMenu" anchor="last" />
+        <action class="com.nuvei.cashier.plugin.actions.AddPppAdminPropertyAction" description="Opens a dialog to add a new PPP admin property"
+            icon="/icons/addppp.png" id="AddPppAdminPropertyAction"
+            text="Add a New PPP Admin Property">
+            <add-to-group anchor="last" group-id="ProjectViewPopupMenu" />
+            <add-to-group anchor="last" group-id="EditorPopupMenu" />
+            <add-to-group anchor="last" group-id="Bookmarks.ToolWindow.PopupMenu" />
         </action>
     </actions>
 </idea-plugin>
