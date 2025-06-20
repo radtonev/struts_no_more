@@ -10,7 +10,7 @@ import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 
 public class GeminiAssistant {
 
-    static private final Logger logger = org.slf4j.LoggerFactory.getLogger(GeminiAssistant.class);
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(GeminiAssistant.class);
 
     private static final String DEFAULT_GEMINI_MODEL = "gemini-2.0-flash-lite";
 
