@@ -36,9 +36,26 @@ public class ValidationUtils {
         new ComponentValidator(parentDisposable)
                 .withValidator(() -> {
                     String text = port.getText();
-                    String regex = "(PBI_\\d+|pbi_\\d+|\\d+)";
+                    String regex = "";
                     if (!text.matches(regex)) {
                         return new ValidationInfo("Expected format: PBI_12345, pbi_12345, or 12345.", port);
+                    }
+                    return null;
+                }).installOn(port);
+        port.getDocument().addDocumentListener(new DocumentAdapter() {
+            @Override
+            protected void textChanged(@NotNull DocumentEvent e) {
+                ComponentValidator.getInstance(port).ifPresent(ComponentValidator::revalidate);
+            }
+        });
+    }
+
+    public static void attachPatternValidator(String pattern, @NotNull Disposable parentDisposable, JTextField port) {
+        new ComponentValidator(parentDisposable)
+                .withValidator(() -> {
+                    String text = port.getText();
+                    if (!text.matches(pattern)) {
+                        return new ValidationInfo("Invalid format!", port);
                     }
                     return null;
                 }).installOn(port);

@@ -82,6 +82,8 @@ public class AddPppAdminPropertyAction extends AnAction {
                         ", story number: " + dialog.getStoryNumber() +
                         ", cached: " + dialog.isCached() +
                         ", type: " + dialog.getType() +
+                        ", fieldSize: " + dialog.getFieldSize() +
+                        ", defaultValue: " + dialog.getDefaultValue() +
                         ", file location: " + file.getCanonicalPath() +
                         " in project: " + project.getName() +
                         "\n\n" + "PPP Admin Path: " +
