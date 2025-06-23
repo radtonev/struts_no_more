@@ -1,4 +1,4 @@
-package com.nuvei.cashier.ai.utils;
+package com.nuvei.cashier.ai.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +24,15 @@ public class TemplateUtil {
 
     public static PromptTemplate getTemplate(InputStream templateStream) throws IOException {
         return getTemplate(new String(templateStream.readAllBytes(), StandardCharsets.UTF_8));
+    }
+
+    public static PromptTemplate getTemplateFromResource(String resourcePath) throws IOException {
+        try (InputStream inputStream = TemplateUtil.class.getResourceAsStream(resourcePath)) {
+            if (inputStream == null) {
+                throw new IOException("Resource not found: " + resourcePath);
+            }
+            return getTemplate(inputStream);
+        }
     }
 
 }

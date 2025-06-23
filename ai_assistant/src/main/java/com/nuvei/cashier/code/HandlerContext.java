@@ -4,16 +4,21 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CodeContext {
+public class HandlerContext {
 
     private Path file;
+    private ClassRole classRole;
     private String originalContent;
     private String modifiedContent;
 
+    private String ddlStatement;
+
     private String fieldName;
     private String fieldType;
+    private String fieldSize;
     private String fieldTooltip;
     private String fieldDefaultValue;
+    private boolean fieldCached;
     private boolean fieldNullable;
 
     private String storyId;
@@ -23,12 +28,36 @@ public class CodeContext {
 
     private Map<String, Object> metadata = new HashMap<>();
 
+    public HandlerContext(Path file, ClassRole classRole, String fieldName, String fieldType, String fieldSize,
+            String fieldTooltip, String fieldDefaultValue, boolean fieldCached, boolean fieldNullable, String storyId,
+            String llmTemplatePath) {
+        this.file = file;
+        this.classRole = classRole;
+        this.fieldName = fieldName;
+        this.fieldType = fieldType;
+        this.fieldSize = fieldSize;
+        this.fieldTooltip = fieldTooltip;
+        this.fieldDefaultValue = fieldDefaultValue;
+        this.fieldCached = fieldCached;
+        this.fieldNullable = fieldNullable;
+        this.storyId = storyId;
+        this.llmTemplatePath = llmTemplatePath;
+    }
+
     public Path getFile() {
         return file;
     }
 
     public void setFile(Path file) {
         this.file = file;
+    }
+
+    public ClassRole getClassRole() {
+        return classRole;
+    }
+
+    public void setClassRole(ClassRole classRole) {
+        this.classRole = classRole;
     }
 
     public String getOriginalContent() {
@@ -47,6 +76,14 @@ public class CodeContext {
         this.modifiedContent = modifiedContent;
     }
 
+    public String getDdlStatement() {
+        return ddlStatement;
+    }
+
+    public void setDdlStatement(String ddlStatement) {
+        this.ddlStatement = ddlStatement;
+    }
+
     public String getFieldName() {
         return fieldName;
     }
@@ -63,6 +100,14 @@ public class CodeContext {
         this.fieldType = fieldType;
     }
 
+    public String getFieldSize() {
+        return fieldSize;
+    }
+
+    public void setFieldSize(String fieldSize) {
+        this.fieldSize = fieldSize;
+    }
+
     public String getFieldTooltip() {
         return fieldTooltip;
     }
@@ -77,6 +122,14 @@ public class CodeContext {
 
     public void setFieldDefaultValue(String fieldDefaultValue) {
         this.fieldDefaultValue = fieldDefaultValue;
+    }
+
+    public boolean isFieldCached() {
+        return fieldCached;
+    }
+
+    public void setFieldCached(boolean fieldCached) {
+        this.fieldCached = fieldCached;
     }
 
     public boolean isFieldNullable() {
@@ -121,11 +174,12 @@ public class CodeContext {
 
     @Override
     public String toString() {
-        return "CodeContext [file=" + file + ", originalContent=" + originalContent + ", modifiedContent="
-                + modifiedContent + ", fieldName=" + fieldName + ", fieldType=" + fieldType + ", fieldTooltip="
-                + fieldTooltip + ", fieldDefaultValue=" + fieldDefaultValue + ", fieldNullable=" + fieldNullable
-                + ", storyId=" + storyId + ", llmTemplatePath=" + llmTemplatePath + ", llmResponse=" + llmResponse
-                + ", metadata=" + metadata + "]";
+        return "HandlerContext [file=" + file + ", classRole=" + classRole + ", originalContent=" + originalContent
+                + ", modifiedContent=" + modifiedContent + ", ddlStatement=" + ddlStatement + ", fieldName=" + fieldName
+                + ", fieldType=" + fieldType + ", fieldSize=" + fieldSize + ", fieldTooltip=" + fieldTooltip
+                + ", fieldDefaultValue=" + fieldDefaultValue + ", fieldCached=" + fieldCached + ", fieldNullable="
+                + fieldNullable + ", storyId=" + storyId + ", llmTemplatePath=" + llmTemplatePath + ", llmResponse="
+                + llmResponse + ", metadata=" + metadata + "]";
     }
 
 }
