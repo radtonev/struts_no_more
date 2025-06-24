@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for Assistant.
  */
-public class AssistantTest 
+public class AiAssistantTest 
 {
     /**
      * Rigorous Test :-)
