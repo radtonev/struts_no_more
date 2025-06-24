@@ -1,11 +1,10 @@
 package com.nuvei.cashier.code.prompt;
 
 import java.io.IOException;
-import java.util.Map;
 
 import com.nuvei.cashier.code.ClassRole;
 
-public class PromptProviderFactory implements IPromptProvider {
+public class PromptProviderFactory implements IPromptProviderFactory {
 
     private final IPromptProvider modifyEntityPromptProvider;
 
@@ -14,10 +13,10 @@ public class PromptProviderFactory implements IPromptProvider {
     }
 
     @Override
-    public String getPrompt(ClassRole classRole, Map<String, Object> variables) {
+    public IPromptProvider createPromptProvider(ClassRole classRole) {
         switch (classRole) {
             case ENTITY:
-                return modifyEntityPromptProvider.getPrompt(classRole, variables);
+                return modifyEntityPromptProvider;
             case DTO:
             case SERVICE:
             default:

@@ -26,12 +26,16 @@ public class TemplateUtil {
         return getTemplate(new String(templateStream.readAllBytes(), StandardCharsets.UTF_8));
     }
 
-    public static PromptTemplate getTemplateFromResource(String resourcePath) throws IOException {
-        try (InputStream inputStream = TemplateUtil.class.getResourceAsStream(resourcePath)) {
-            if (inputStream == null) {
-                throw new IOException("Resource not found: " + resourcePath);
+    public static PromptTemplate getTemplateFromResource(String resourcePath) {
+        try {
+            try (InputStream inputStream = TemplateUtil.class.getResourceAsStream(resourcePath)) {
+                if (inputStream == null) {
+                    throw new IOException("Resource not found: " + resourcePath);
+                }
+                return getTemplate(inputStream);
             }
-            return getTemplate(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
