@@ -23,6 +23,7 @@ dependencies {
         // Add necessary plugin dependencies for compilation here, example:
         // bundledPlugin("com.intellij.java")
     }
+    implementation(files("libs/ai-assistant-0.1.jar"))
 }
 
 intellijPlatform {
@@ -30,10 +31,6 @@ intellijPlatform {
         ideaVersion {
             sinceBuild = "191"
         }
-
-        changeNotes = """
-      Initial version
-    """.trimIndent()
     }
 }
 

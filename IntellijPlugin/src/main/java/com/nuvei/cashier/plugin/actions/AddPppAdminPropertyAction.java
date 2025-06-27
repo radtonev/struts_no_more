@@ -9,7 +9,9 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.nuvei.cashier.plugin.services.AiLauncher;
 import com.nuvei.cashier.plugin.settings.StrutsNoMoreSettings;
+import com.nuvei.cashier.plugin.utils.LogStreamer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ public class AddPppAdminPropertyAction extends AnAction {
         allowedPlaces.add("FileEditorPopup"); // Context menu in the file editor
     }
 
+    private final AiLauncher aiLauncher = new AiLauncher();
+
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         Project project = e.getProject();
@@ -38,7 +42,6 @@ public class AddPppAdminPropertyAction extends AnAction {
         }
         String className = file.getNameWithoutExtension();
         AddPppAdminPropertyDialog dialog = new AddPppAdminPropertyDialog(className);
-
         try {
             if (dialog.showAndGet()) {
                 generateFiles(project, file, dialog);
@@ -75,35 +78,20 @@ public class AddPppAdminPropertyAction extends AnAction {
 
     private void generateFiles(Project project, VirtualFile file, AddPppAdminPropertyDialog dialog) {
         String pppAdminDirectory = ApplicationManager.getApplication().getService(StrutsNoMoreSettings.class).getPppAdminDirectory();
-        Messages.showInfoMessage(
-                "Generating files for class: " + file.getNameWithoutExtension() +
-                        ", property: " + dialog.getPropertyName() +
-                        ", hint: " + dialog.getHint() +
-                        ", story number: " + dialog.getStoryNumber() +
-                        ", cached: " + dialog.isCached() +
-                        ", type: " + dialog.getType() +
-                        ", fieldSize: " + dialog.getFieldSize() +
-                        ", defaultValue: " + dialog.getDefaultValue() +
-                        ", file location: " + file.getCanonicalPath() +
-                        " in project: " + project.getName() +
-                        "\n\n" + "PPP Admin Path: " +
-                        pppAdminDirectory,
-                "File Generation"
-        );
+        String filePath = file.getCanonicalPath();
+        if (filePath == null) {
+            Messages.showErrorDialog(project, "File path is null. Cannot generate files.", "Error");
+            return;
+        }
+        LoadingDialog loadingDialog = new LoadingDialog(dialog.getLoadingMessage(file, pppAdminDirectory));
+        LogStreamer logStreamer = new LogStreamer(loadingDialog.getLogsTextArea());
+        try {
+            logStreamer.startStreaming();
+            loadingDialog.startLoading(() -> aiLauncher.launch(dialog, filePath, pppAdminDirectory));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            logStreamer.stopStreaming();
+        }
     }
-    /*
-    https://intellij-support.jetbrains.com/hc/en-us/community/posts/360006981360-How-to-modify-files-in-plugin
-    Project project = event.getProject();
-    VirtualFile file = event.getData(PlatformDataKeys.VIRTUAL_FILE);
-    Document document = event.getData(PlatformDataKeys.EDITOR).getDocument();
-    try {
-        String newContent = changeContent(document.getText());
-        Runnable r = () -> {
-            document.setReadOnly(false);
-            document.setText(newContent);
-        };
-        WriteCommandAction.runWriteCommandAction(project, r);
-    } catch (Exception e) {
-    }
-*/
 }
