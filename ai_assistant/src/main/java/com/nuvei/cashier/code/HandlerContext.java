@@ -12,6 +12,7 @@ public class HandlerContext {
     private String modifiedContent;
 
     private String ddlStatement;
+    private Path ddlStatementPath;
 
     private String fieldName;
     private String fieldType;
@@ -23,14 +24,13 @@ public class HandlerContext {
 
     private String storyId;
 
-    private String llmTemplatePath;
     private String llmResponse;
 
     private Map<String, Object> metadata = new HashMap<>();
 
     public HandlerContext(Path file, ClassRole classRole, String fieldName, String fieldType, String fieldSize,
             String fieldTooltip, String fieldDefaultValue, boolean fieldCached, boolean fieldNullable, String storyId,
-            String llmTemplatePath) {
+            Path ddlStatementPath) {
         this.file = file;
         this.classRole = classRole;
         this.fieldName = fieldName;
@@ -41,7 +41,7 @@ public class HandlerContext {
         this.fieldCached = fieldCached;
         this.fieldNullable = fieldNullable;
         this.storyId = storyId;
-        this.llmTemplatePath = llmTemplatePath;
+        this.ddlStatementPath = ddlStatementPath;
     }
 
     public Path getFile() {
@@ -82,6 +82,14 @@ public class HandlerContext {
 
     public void setDdlStatement(String ddlStatement) {
         this.ddlStatement = ddlStatement;
+    }
+
+    public Path getDdlStatementPath() {
+        return ddlStatementPath;
+    }
+
+    public void setDdlStatementPath(Path ddlStatementPath) {
+        this.ddlStatementPath = ddlStatementPath;
     }
 
     public String getFieldName() {
@@ -148,14 +156,6 @@ public class HandlerContext {
         this.storyId = storyId;
     }
 
-    public String getLlmTemplatePath() {
-        return llmTemplatePath;
-    }
-
-    public void setLlmTemplatePath(String llmTemplatePath) {
-        this.llmTemplatePath = llmTemplatePath;
-    }
-
     public String getLlmResponse() {
         return llmResponse;
     }
@@ -175,11 +175,11 @@ public class HandlerContext {
     @Override
     public String toString() {
         return "HandlerContext [file=" + file + ", classRole=" + classRole + ", originalContent=" + originalContent
-                + ", modifiedContent=" + modifiedContent + ", ddlStatement=" + ddlStatement + ", fieldName=" + fieldName
-                + ", fieldType=" + fieldType + ", fieldSize=" + fieldSize + ", fieldTooltip=" + fieldTooltip
-                + ", fieldDefaultValue=" + fieldDefaultValue + ", fieldCached=" + fieldCached + ", fieldNullable="
-                + fieldNullable + ", storyId=" + storyId + ", llmTemplatePath=" + llmTemplatePath + ", llmResponse="
-                + llmResponse + ", metadata=" + metadata + "]";
+                + ", modifiedContent=" + modifiedContent + ", ddlStatement=" + ddlStatement + ", ddlStatementPath="
+                + ddlStatementPath + ", fieldName=" + fieldName + ", fieldType=" + fieldType + ", fieldSize="
+                + fieldSize + ", fieldTooltip=" + fieldTooltip + ", fieldDefaultValue=" + fieldDefaultValue
+                + ", fieldCached=" + fieldCached + ", fieldNullable=" + fieldNullable + ", storyId=" + storyId
+                + ", llmResponse=" + llmResponse + ", metadata=" + metadata
+                + "]";
     }
-
 }

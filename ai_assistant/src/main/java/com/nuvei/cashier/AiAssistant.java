@@ -1,10 +1,39 @@
 package com.nuvei.cashier;
 
+import java.nio.file.Path;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.nuvei.cashier.ai.CodeAssistant;
+import com.nuvei.cashier.ai.ICodeAssistant;
+import com.nuvei.cashier.ai.client.GeminiAssistant;
+import com.nuvei.cashier.code.handler.IHandler;
+import com.nuvei.cashier.code.parser.IResponseParserFactory;
+import com.nuvei.cashier.code.parser.MarkdownResponseParserFactory;
+import com.nuvei.cashier.code.pipeline.PipelineFactory;
+
+import dev.langchain4j.model.chat.ChatModel;
+
 public class AiAssistant {
 
-    public static void main(String[] args) {
-        AiAssistantCli cli = new AiAssistantCli(args);
+    private static final Logger logger = LoggerFactory.getLogger(AiAssistant.class);
 
-        System.out.println(String.format("You selected file: %s", cli.getFile()));
+    public static void main(String[] args) {
+        try {
+            AiAssistantCli cli = new AiAssistantCli(args);
+
+            ChatModel model = GeminiAssistant.getModel();
+            ICodeAssistant codeAssistant = new CodeAssistant(model);
+            IResponseParserFactory<String> parserFactory = new MarkdownResponseParserFactory();
+            IHandler pipeline = PipelineFactory.createPipeline(codeAssistant, parserFactory);
+            FileProcessor fileProcessor = new FileProcessor(pipeline);
+
+            // TODO: Pass more parameters from the CLI
+            fileProcessor.process(Path.of(cli.getFile()));
+        } catch (Exception e) {
+            logger.error("Error: {}", e.getMessage(), e);
+            System.exit(255);
+        }
     }
 }

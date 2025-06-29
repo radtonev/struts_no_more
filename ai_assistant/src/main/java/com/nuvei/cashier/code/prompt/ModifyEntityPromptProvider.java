@@ -12,7 +12,7 @@ public class ModifyEntityPromptProvider implements IPromptProvider {
     private final PromptTemplate template;
 
     public ModifyEntityPromptProvider() throws IOException {
-        this.template = TemplateUtil.getTemplateFromResource("/prompt/modify_entity_prompt.tpl.txt");
+        this.template = TemplateUtil.getTemplateFromResource("/templates/modify_entity_prompt.tpl.txt");
     }
 
     @Override

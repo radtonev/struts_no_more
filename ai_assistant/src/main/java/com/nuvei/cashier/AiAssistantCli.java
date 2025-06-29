@@ -7,16 +7,12 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AiAssistantCli {
 
-    private static final Logger logger = LoggerFactory.getLogger(AiAssistantCli.class);
-
     private String file;
 
-    public AiAssistantCli(String[] args) {
+    public AiAssistantCli(String[] args) throws ParseException {
         Options options = new Options();
 
         options.addOption(Option.builder()
@@ -54,8 +50,8 @@ public class AiAssistantCli {
             file = cmd.getOptionValue("f");
 
         } catch (ParseException e) {
-            logger.error("Error: {}", e.getMessage());
             formatter.printHelp(cmdLineSyntax, options);
+            throw e;
         }
     }
 
