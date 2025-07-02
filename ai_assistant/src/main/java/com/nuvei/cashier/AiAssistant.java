@@ -1,7 +1,5 @@
 package com.nuvei.cashier;
 
-import java.nio.file.Path;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +27,7 @@ public class AiAssistant {
             IHandler pipeline = PipelineFactory.createPipeline(codeAssistant, parserFactory);
             FileProcessor fileProcessor = new FileProcessor(pipeline);
 
-            // TODO: Pass more parameters from the CLI
-            fileProcessor.process(Path.of(cli.getFile()));
+            fileProcessor.process(cli.getInputParameters());
         } catch (Exception e) {
             logger.error("Error: {}", e.getMessage(), e);
             System.exit(255);

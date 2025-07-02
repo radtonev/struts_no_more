@@ -6,50 +6,48 @@ import java.util.Map;
 
 public class HandlerContext {
 
-    private Path file;
-    private ClassRole classRole;
+    private InputParameters inputParameters;
+
+    private Path basePath = Path.of("");
+
+    private Path classFile = Path.of("");
+    private ClassRole classRole = ClassRole.UNKNOWN;
     private String originalContent;
     private String modifiedContent;
 
     private String ddlStatement;
-    private Path ddlStatementPath;
-
-    private String fieldName;
-    private String fieldType;
-    private String fieldSize;
-    private String fieldTooltip;
-    private String fieldDefaultValue;
-    private boolean fieldCached;
-    private boolean fieldNullable;
-
-    private String storyId;
+    private Path ddlStatementPath = Path.of("");
 
     private String llmResponse;
 
     private Map<String, Object> metadata = new HashMap<>();
 
-    public HandlerContext(Path file, ClassRole classRole, String fieldName, String fieldType, String fieldSize,
-            String fieldTooltip, String fieldDefaultValue, boolean fieldCached, boolean fieldNullable, String storyId,
-            Path ddlStatementPath) {
-        this.file = file;
-        this.classRole = classRole;
-        this.fieldName = fieldName;
-        this.fieldType = fieldType;
-        this.fieldSize = fieldSize;
-        this.fieldTooltip = fieldTooltip;
-        this.fieldDefaultValue = fieldDefaultValue;
-        this.fieldCached = fieldCached;
-        this.fieldNullable = fieldNullable;
-        this.storyId = storyId;
-        this.ddlStatementPath = ddlStatementPath;
+    public HandlerContext(InputParameters inputParameters) {
+        this.inputParameters = inputParameters;
     }
 
-    public Path getFile() {
-        return file;
+    public InputParameters getInputParameters() {
+        return inputParameters;
     }
 
-    public void setFile(Path file) {
-        this.file = file;
+    public void setInputParameters(InputParameters inputParameters) {
+        this.inputParameters = inputParameters;
+    }
+
+    public Path getBasePath() {
+        return basePath;
+    }
+
+    public void setBasePath(Path basePath) {
+        this.basePath = basePath;
+    }
+
+    public Path getClassFile() {
+        return classFile;
+    }
+
+    public void setClassFile(Path file) {
+        this.classFile = file;
     }
 
     public ClassRole getClassRole() {
@@ -92,70 +90,6 @@ public class HandlerContext {
         this.ddlStatementPath = ddlStatementPath;
     }
 
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
-    }
-
-    public String getFieldType() {
-        return fieldType;
-    }
-
-    public void setFieldType(String fieldType) {
-        this.fieldType = fieldType;
-    }
-
-    public String getFieldSize() {
-        return fieldSize;
-    }
-
-    public void setFieldSize(String fieldSize) {
-        this.fieldSize = fieldSize;
-    }
-
-    public String getFieldTooltip() {
-        return fieldTooltip;
-    }
-
-    public void setFieldTooltip(String fieldTooltip) {
-        this.fieldTooltip = fieldTooltip;
-    }
-
-    public String getFieldDefaultValue() {
-        return fieldDefaultValue;
-    }
-
-    public void setFieldDefaultValue(String fieldDefaultValue) {
-        this.fieldDefaultValue = fieldDefaultValue;
-    }
-
-    public boolean isFieldCached() {
-        return fieldCached;
-    }
-
-    public void setFieldCached(boolean fieldCached) {
-        this.fieldCached = fieldCached;
-    }
-
-    public boolean isFieldNullable() {
-        return fieldNullable;
-    }
-
-    public void setFieldNullable(boolean fieldNullable) {
-        this.fieldNullable = fieldNullable;
-    }
-
-    public String getStoryId() {
-        return storyId;
-    }
-
-    public void setStoryId(String storyId) {
-        this.storyId = storyId;
-    }
-
     public String getLlmResponse() {
         return llmResponse;
     }
@@ -174,12 +108,9 @@ public class HandlerContext {
 
     @Override
     public String toString() {
-        return "HandlerContext [file=" + file + ", classRole=" + classRole + ", originalContent=" + originalContent
-                + ", modifiedContent=" + modifiedContent + ", ddlStatement=" + ddlStatement + ", ddlStatementPath="
-                + ddlStatementPath + ", fieldName=" + fieldName + ", fieldType=" + fieldType + ", fieldSize="
-                + fieldSize + ", fieldTooltip=" + fieldTooltip + ", fieldDefaultValue=" + fieldDefaultValue
-                + ", fieldCached=" + fieldCached + ", fieldNullable=" + fieldNullable + ", storyId=" + storyId
-                + ", llmResponse=" + llmResponse + ", metadata=" + metadata
-                + "]";
+        return "HandlerContext [inputParameters=" + inputParameters + ", basePath=" + basePath + ", classFile="
+                + classFile + ", classRole=" + classRole + ", originalContent=" + originalContent + ", modifiedContent="
+                + modifiedContent + ", ddlStatement=" + ddlStatement + ", ddlStatementPath=" + ddlStatementPath
+                + ", llmResponse=" + llmResponse + ", metadata=" + metadata + "]";
     }
 }

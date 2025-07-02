@@ -11,7 +11,7 @@ public class LoggingHandler extends AbstractHandler {
 
     @Override
     public void handle(HandlerContext ctx) throws Exception {
-        logger.info("Starting step in for file {}", ctx.getFile());
+        logger.info("Starting step in for file {}", ctx.getClassFile());
 
         fireNext(ctx);
         

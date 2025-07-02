@@ -5,6 +5,7 @@ import java.util.Map;
 import com.nuvei.cashier.ai.ICodeAssistant;
 import com.nuvei.cashier.code.ClassRole;
 import com.nuvei.cashier.code.HandlerContext;
+import com.nuvei.cashier.code.InputParameters;
 import com.nuvei.cashier.code.parser.IResponseParser;
 import com.nuvei.cashier.code.parser.IResponseParserFactory;
 import com.nuvei.cashier.code.prompt.PromptProviderFactory;
@@ -36,8 +37,9 @@ public class ModifyFileHandler extends AbstractHandler {
     }
 
     private Map<String, Object> getVariables(HandlerContext ctx) {
-        return Map.of("originalContent", ctx.getOriginalContent(), "fieldName", ctx.getFieldName(), "fieldType",
-                ctx.getFieldType(), "fieldSize", ctx.getFieldSize(), "fieldTooltip", ctx.getFieldTooltip(),
-                "fieldDefaultValue", ctx.getFieldDefaultValue(), "fieldNullable", ctx.isFieldNullable());
+        InputParameters p = ctx.getInputParameters();
+        return Map.of("originalContent", ctx.getOriginalContent(), "fieldName", p.fieldName(), "fieldType",
+                p.fieldType(), "fieldSize", p.fieldSize(), "fieldTooltip", p.fieldTooltip(),
+                "fieldDefaultValue", p.fieldDefaultValue(), "fieldNullable", p.fieldNullable());
     }
 }

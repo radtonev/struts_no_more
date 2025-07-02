@@ -1,9 +1,9 @@
 package com.nuvei.cashier;
 
-import java.nio.file.Path;
 import java.util.Objects;
 
 import com.nuvei.cashier.code.HandlerContext;
+import com.nuvei.cashier.code.InputParameters;
 import com.nuvei.cashier.code.handler.IHandler;
 import com.nuvei.cashier.workflow.IWorkflow;
 import com.nuvei.cashier.workflow.WorkflowClass;
@@ -17,30 +17,35 @@ public class FileProcessor {
         this.pipeline = pipeline;
     }
 
-    public void process(Path file) throws Exception {
-        Objects.requireNonNull(file, "File cannot be null");
+    public void process(InputParameters inputParameters) throws Exception {
+        // Validate input parameters
+        validateInputParameters(inputParameters);
 
-        IWorkflow workflow = WorkflowFactory.createWorkflow(file);
+        // Create a workflow based on the input file
+        IWorkflow workflow = WorkflowFactory.createWorkflow(inputParameters.file());
+
+        // Create a context for the pipeline
+        HandlerContext ctx = new HandlerContext(inputParameters);
+        ctx.setDdlStatementPath(workflow.getDdlStatementPath());
 
         for (WorkflowClass wfClass : workflow.getWorkflowClasses()) {
-            // Create a context for the pipeline
-            HandlerContext ctx = new HandlerContext(
-                    // Specify the file to process
-                    wfClass.file(),
-                    // Specify the class role
-                    wfClass.classRole(),
-                    // Specify field details
-                    "fieldName", "fieldType", "fieldSize", "fieldTooltip", "fieldDefaultValue",
-                    false, false,
-                    // Specify the story ID
-                    "storyId",
-                    // Specify the path to the migration statements
-                    workflow.getDdlStatementPath()
-            );
+            // Update context for the pipeline
+            ctx.setClassFile(wfClass.file());
+            ctx.setClassRole(wfClass.classRole());
+
             // Start processing the workflow
             pipeline.handle(ctx);
         }
 
-        
+    }
+
+    private void validateInputParameters(InputParameters inputParameters) {
+        Objects.requireNonNull(inputParameters.file(), "File cannot be null");
+        Objects.requireNonNull(inputParameters.fieldName(), "Field name cannot be null");
+        Objects.requireNonNull(inputParameters.fieldType(), "Field type cannot be null");
+        Objects.requireNonNull(inputParameters.fieldSize(), "Field size cannot be null");
+        Objects.requireNonNull(inputParameters.fieldTooltip(), "Field tooltip cannot be null");
+        Objects.requireNonNull(inputParameters.fieldDefaultValue(), "Field default value cannot be null");
+        Objects.requireNonNull(inputParameters.storyId(), "User story ID cannot be null");
     }
 }
