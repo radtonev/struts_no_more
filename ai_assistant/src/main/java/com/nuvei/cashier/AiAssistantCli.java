@@ -66,8 +66,8 @@ public class AiAssistantCli {
 
         options.addOption(Option.builder()
                 .option("c")
-                .longOpt("fieldCached")
-                .desc("Is field cached?")
+                .longOpt("fieldCacheable")
+                .desc("Is field cacheable?")
                 .build());
 
         options.addOption(Option.builder()
