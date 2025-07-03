@@ -24,6 +24,10 @@ public class ModifyFileHandler extends AbstractHandler {
 
     @Override
     public void handle(HandlerContext ctx) throws Exception {
+        if (ClassRole.CACHE_DTO.equals(ctx.getClassRole()) && !ctx.getInputParameters().fieldCacheable()) {
+            fireNext(ctx);
+            return;
+        }
         String prompt = PromptProviderFactory.createPromptProvider(ctx.getClassRole()).getPrompt(getVariables(ctx));
         ctx.setLlmResponse(codeAssistant.modifyCode(UserMessage.from(prompt)));
         IResponseParser<String> parser = parserFactory.createParser("java");

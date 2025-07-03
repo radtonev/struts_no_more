@@ -6,6 +6,7 @@ import com.nuvei.cashier.code.handler.LoggingHandler;
 import com.nuvei.cashier.code.handler.ModifyFileHandler;
 import com.nuvei.cashier.code.handler.ReadFileHandler;
 import com.nuvei.cashier.code.handler.ResolvePathsHandler;
+import com.nuvei.cashier.code.handler.WriteFileHandler;
 import com.nuvei.cashier.code.parser.IResponseParserFactory;
 
 public class PipelineFactory {
@@ -16,11 +17,13 @@ public class PipelineFactory {
         IHandler resolve = new ResolvePathsHandler();
         IHandler read = new ReadFileHandler();
         IHandler modify = new ModifyFileHandler(codeAssistant, parserFactory);
+        IHandler write = new WriteFileHandler();
 
         // Chain the handlers together
         logger.setNext(resolve);
         resolve.setNext(read);
         read.setNext(modify);
+        modify.setNext(write);
 
         return logger;
     }

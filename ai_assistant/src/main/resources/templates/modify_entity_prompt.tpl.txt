@@ -1,5 +1,8 @@
-Given an entity Java class, a DTO class and a request to add a new field, modify the entity and DTO class to include the field,
-its getter and setter, and generate an SQL ALTER TABLE statement to add a column for this field in the corresponding
+Given an entity Java class and a request to add a new field, modify the entity class to include the field,
+its getter and setter.
+If the DTO class has a parametrized constructor, add the new field to the parametrized constructor.
+If the DTO class has a toString method, add the new field to the method.
+Generate an SQL ALTER TABLE statement to add a column for this field in the corresponding
 database table.
 The column name should be exactly like the field name.
 The type of the table field should be matching the Java type but for MySQL database.

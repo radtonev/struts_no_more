@@ -9,7 +9,7 @@ public record InputParameters(
     String fieldSize,
     String fieldTooltip,
     String fieldDefaultValue,
-    boolean fieldCached,
+    boolean fieldCacheable,
     boolean fieldNullable,
     String storyId
 ) {

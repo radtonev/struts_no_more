@@ -14,6 +14,7 @@ public class MarkdownResponseParser implements IResponseParser<String> {
 
     @Override
     public String parse(String llmResponse) {
+        llmResponse = llmResponse.replaceAll("(?i)" + language, language);
         String fence = "```" + language;
         int start = llmResponse.indexOf(fence);
         if (start == -1) return null;

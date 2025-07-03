@@ -23,7 +23,9 @@ public class AiAssistant {
 
             ChatModel model = GeminiAssistant.getModel();
             ICodeAssistant codeAssistant = new CodeAssistant(model);
+
             IResponseParserFactory<String> parserFactory = new MarkdownResponseParserFactory();
+            
             IHandler pipeline = PipelineFactory.createPipeline(codeAssistant, parserFactory);
             FileProcessor fileProcessor = new FileProcessor(pipeline);
 

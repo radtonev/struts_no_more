@@ -10,7 +10,8 @@ public class MerchantWorkflow implements IWorkflow {
     private final Path file = Path.of("src/test/resources/Product.java.txt");
     private final List<WorkflowClass> workflowClasses = List.of(
             new WorkflowClass(file, ClassRole.ENTITY),
-            new WorkflowClass(Path.of("src/main/java/com/MerchantDTO.java"), ClassRole.DTO)
+            new WorkflowClass(Path.of("src/test/resources/ProductDTO.java.txt"), ClassRole.DTO),
+            new WorkflowClass(Path.of("src/test/resources/ProductCacheDTO.java.txt"), ClassRole.CACHE_DTO)
     );
     private final Path ddlStatementPath = Path.of("src/main/java/db/migrations");
 

@@ -1,23 +1,15 @@
 package com.nuvei.cashier.code.prompt;
 
-import java.io.IOException;
-
 import com.nuvei.cashier.code.ClassRole;
 
 public enum PromptProviderType {
 
-    MODIFY_ENTITY_PROMPT(createModifyEntityPromptProvider(), ClassRole.ENTITY);
+    MODIFY_ENTITY_PROMPT(new DefaultPromptProvider("/templates/modify_entity_prompt.tpl.txt"), ClassRole.ENTITY),
+    MODIFY_DTO_PROMPT(new DefaultPromptProvider("/templates/modify_dto_prompt.tpl.txt"), ClassRole.DTO),
+    MODIFY_CACHE_DTO_PROMPT(new DefaultPromptProvider("/templates/modify_dto_prompt.tpl.txt"), ClassRole.CACHE_DTO),;
 
     private final IPromptProvider promptProvider;
     private final ClassRole classRole;
-
-    private static IPromptProvider createModifyEntityPromptProvider() {
-        try {
-            return new ModifyEntityPromptProvider();
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to create ModifyEntityPromptProvider", e);
-        }
-    }
 
     private PromptProviderType(IPromptProvider promptProvider, ClassRole classRole) {
         this.promptProvider = promptProvider;
