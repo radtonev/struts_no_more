@@ -2,7 +2,7 @@ package com.nuvei.cashier.workflow;
 
 public enum WorkflowType {
 
-    MERCHANT(new MerchantWorkflow());
+    MERCHANT_SITE(new MerchantSiteWorkflow());
 
     private final IWorkflow workflow;
 
