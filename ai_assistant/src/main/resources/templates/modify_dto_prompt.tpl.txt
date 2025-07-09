@@ -10,7 +10,7 @@ Java DTO class:
 ```
 
 Add this field:
-- Name: {{fieldName}} 
+- Name: {{fieldName}}
 - Type: {{fieldType}}
 
 Return:

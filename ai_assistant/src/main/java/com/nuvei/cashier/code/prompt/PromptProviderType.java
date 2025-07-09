@@ -6,7 +6,9 @@ public enum PromptProviderType {
 
     MODIFY_ENTITY_PROMPT(new DefaultPromptProvider("/templates/modify_entity_prompt.tpl.txt"), ClassRole.ENTITY),
     MODIFY_DTO_PROMPT(new DefaultPromptProvider("/templates/modify_dto_prompt.tpl.txt"), ClassRole.DTO),
-    MODIFY_CACHE_DTO_PROMPT(new DefaultPromptProvider("/templates/modify_dto_prompt.tpl.txt"), ClassRole.CACHE_DTO),;
+    MODIFY_CACHE_DTO_PROMPT(new DefaultPromptProvider("/templates/modify_dto_prompt.tpl.txt"), ClassRole.CACHE_DTO),
+    MODIFY_CACHE_LOADER_PROMPT(new DefaultPromptProvider("/templates/copy_property_prompt.tpl.txt"),
+            ClassRole.CACHE_LOADER);
 
     private final IPromptProvider promptProvider;
     private final ClassRole classRole;

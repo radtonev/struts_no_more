@@ -24,7 +24,8 @@ public class ModifyFileHandler extends AbstractHandler {
 
     @Override
     public void handle(HandlerContext ctx) throws Exception {
-        if (ClassRole.CACHE_DTO.equals(ctx.getClassRole()) && !ctx.getInputParameters().fieldCacheable()) {
+        if ((ClassRole.CACHE_DTO.equals(ctx.getClassRole()) || ClassRole.CACHE_LOADER.equals(ctx.getClassRole()))
+                && !ctx.getInputParameters().fieldCacheable()) {
             fireNext(ctx);
             return;
         }
@@ -43,7 +44,7 @@ public class ModifyFileHandler extends AbstractHandler {
     private Map<String, Object> getVariables(HandlerContext ctx) {
         InputParameters p = ctx.getInputParameters();
         return Map.of("originalContent", ctx.getOriginalContent(), "fieldName", p.fieldName(), "fieldType",
-                p.fieldType(), "fieldSize", p.fieldSize(), "fieldTooltip", p.fieldTooltip(),
-                "fieldDefaultValue", p.fieldDefaultValue(), "fieldNullable", p.fieldNullable());
+                p.fieldType(), "fieldSize", p.fieldSize(), "fieldTooltip", p.fieldTooltip(), "fieldDefaultValue",
+                p.fieldDefaultValue(), "fieldNullable", p.fieldNullable());
     }
 }

@@ -1,0 +1,17 @@
+
+I have two Java classes: one is an entity for example, and the other is a DTO.
+Both classes have properties with the same names and compatible types.
+Here is the class that does the job:
+
+Java DTO class:
+```Java
+{{originalContent}}
+```
+
+Add to this Java class code that copies the value of the following field:
+- Name: {{fieldName}} 
+from the the first class to the second using the getter from the first clas and setter from the second.
+Assume both classes are already defined. Use standard Java conventions.
+
+Return:
+1. The updated Java class.
