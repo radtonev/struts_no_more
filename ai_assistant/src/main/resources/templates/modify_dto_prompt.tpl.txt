@@ -1,0 +1,17 @@
+Given an DTO Java class and a request to add a new field, modify the DTO class to include the field,
+its getter and setter.
+If the DTO class has a parametrized constructor or a constructor to map from an entity,
+add the new field to the constructors.
+If the DTO class has a toString method, add the new field to the method.
+
+Java DTO class:
+```Java
+{{originalContent}}
+```
+
+Add this field:
+- Name: {{fieldName}}
+- Type: {{fieldType}}
+
+Return:
+1. The updated DTO Java class.

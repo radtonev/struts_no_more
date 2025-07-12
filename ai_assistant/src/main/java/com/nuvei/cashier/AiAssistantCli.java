@@ -1,5 +1,7 @@
 package com.nuvei.cashier;
 
+import java.nio.file.Path;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -7,16 +9,14 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.nuvei.cashier.code.InputParameters;
 
 public class AiAssistantCli {
 
-    private static final Logger logger = LoggerFactory.getLogger(AiAssistantCli.class);
+    private InputParameters inputParameters;
 
-    private String file;
-
-    public AiAssistantCli(String[] args) {
+    public AiAssistantCli(String[] args) throws ParseException {
         Options options = new Options();
 
         options.addOption(Option.builder()
@@ -25,6 +25,63 @@ public class AiAssistantCli {
                 .hasArg()
                 .required()
                 .desc("Path to the file to modify")
+                .build());
+
+        options.addOption(Option.builder()
+                .option("fn")
+                .longOpt("fieldName")
+                .hasArg()
+                .required()
+                .desc("Name of the field to add")
+                .build());
+
+        options.addOption(Option.builder()
+                .option("ft")
+                .longOpt("fieldType")
+                .hasArg()
+                .required()
+                .desc("Type of the field")
+                .build());
+
+        options.addOption(Option.builder()
+                .option("fs")
+                .longOpt("fieldSize")
+                .hasArg()
+                .desc("Size of the field")
+                .build());
+
+        options.addOption(Option.builder()
+                .option("ftt")
+                .longOpt("fieldTooltip")
+                .hasArg()
+                .desc("Tooltip of the field")
+                .build());
+
+        options.addOption(Option.builder()
+                .option("fd")
+                .longOpt("fieldDefaultValue")
+                .hasArg()
+                .desc("Default value of the field")
+                .build());
+
+        options.addOption(Option.builder()
+                .option("c")
+                .longOpt("fieldCacheable")
+                .desc("Is field cacheable?")
+                .build());
+
+        options.addOption(Option.builder()
+                .option("n")
+                .longOpt("fieldNullable")
+                .desc("Is field nullable?")
+                .build());
+
+        options.addOption(Option.builder()
+                .option("sid")
+                .longOpt("storyId")
+                .hasArg()
+                .required()
+                .desc("User story ID")
                 .build());
 
         options.addOption(Option.builder()
@@ -51,15 +108,24 @@ public class AiAssistantCli {
                 return;
             }
 
-            file = cmd.getOptionValue("f");
+            inputParameters = new InputParameters(
+                Path.of(cmd.getOptionValue("f")),
+                cmd.getOptionValue("fn"),
+                cmd.getOptionValue("ft"),
+                cmd.getOptionValue("fs", ""),
+                cmd.getOptionValue("ftt", ""),
+                cmd.getOptionValue("fd", ""),
+                cmd.hasOption("c"),
+                cmd.hasOption("n"),
+                cmd.getOptionValue("sid"));
 
         } catch (ParseException e) {
-            logger.error("Error: {}", e.getMessage());
             formatter.printHelp(cmdLineSyntax, options);
+            throw e;
         }
     }
 
-    public String getFile() {
-        return file;
+    public InputParameters getInputParameters() {
+        return inputParameters;
     }
 }

@@ -4,7 +4,6 @@ import com.nuvei.cashier.ai.util.TemplateUtil;
 
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.model.chat.ChatModel;
-import dev.langchain4j.model.chat.response.ChatResponse;
 import dev.langchain4j.service.AiServices;
 
 public class CodeAssistant implements ICodeAssistant {
@@ -19,7 +18,7 @@ public class CodeAssistant implements ICodeAssistant {
     }
 
     @Override
-    public ChatResponse modifyCode(ChatMessage... messages) {
+    public String modifyCode(ChatMessage... messages) {
         return codeAssistant.modifyCode(messages);
     }
 
