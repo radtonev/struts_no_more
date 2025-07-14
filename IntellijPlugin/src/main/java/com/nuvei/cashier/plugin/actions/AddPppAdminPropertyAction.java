@@ -91,11 +91,11 @@ public class AddPppAdminPropertyAction extends AnAction {
                 try {
                     aiLauncher.launch(dialog, filePath, pppAdminDirectory);
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    Messages.showErrorDialog(e.getMessage(), "Failed Property Generation.");
                 }
             });
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Messages.showErrorDialog(e.getMessage(), "Something Went Wrong.");
         } finally {
             logStreamer.stopStreaming();
         }
