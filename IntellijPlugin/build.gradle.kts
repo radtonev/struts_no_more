@@ -24,6 +24,9 @@ dependencies {
         // bundledPlugin("com.intellij.java")
     }
     implementation(files("libs/ai-assistant-0.1.jar"))
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation("ch.qos.logback:logback-classic:1.5.13")
+
 }
 
 intellijPlatform {

@@ -87,7 +87,13 @@ public class AddPppAdminPropertyAction extends AnAction {
         LogStreamer logStreamer = new LogStreamer(loadingDialog.getLogsTextArea());
         try {
             logStreamer.startStreaming();
-            loadingDialog.startLoading(() -> aiLauncher.launch(dialog, filePath, pppAdminDirectory));
+            loadingDialog.startLoading(() -> {
+                try {
+                    aiLauncher.launch(dialog, filePath, pppAdminDirectory);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
