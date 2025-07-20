@@ -22,7 +22,7 @@ public class GeminiAssistant {
                 .modelName(modelName)
                 .timeout(Duration.ofSeconds(10))
                 .maxRetries(3)
-                .logRequestsAndResponses(true)
+                .logRequestsAndResponses(false)
                 .build();
     }
 

@@ -20,10 +20,19 @@ public class ProductCacheDTO {
         this.description = product.getDescription();
         this.price = product.getPrice();
         this.stockQuantity = product.getStockQuantity();
+        this.barcode = product.getBarcode();
     }
 
     // Default constructor (often needed by frameworks like Spring for deserialization)
     public ProductCacheDTO() {
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 
     // --- Getters and Setters ---
@@ -75,14 +84,6 @@ public class ProductCacheDTO {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
     }
 
     @Override

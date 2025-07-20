@@ -9,7 +9,7 @@ public class WriteFileHandler extends AbstractHandler {
 
     @Override
     public void handle(HandlerContext ctx) throws Exception {
-        Path classFile = ctx.getBasePath().resolve(ctx.getClassFile());
+        Path classFile = ctx.getBasePath().resolve(ctx.getClassFile()).normalize();
         if (ctx.getModifiedContent() != null) {
             // Write the modified content back to the file
             // TODO: Write to the same file

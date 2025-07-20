@@ -23,10 +23,10 @@ public class FileProcessor {
 
         // Create a workflow based on the input file
         IWorkflow workflow = WorkflowFactory.createWorkflow(inputParameters.file());
+        // Create a context for the pipeline
+        HandlerContext ctx = new HandlerContext(inputParameters);
 
         for (WorkflowClass wfClass : workflow.getWorkflowClasses()) {
-            // Create a context for the pipeline
-            HandlerContext ctx = new HandlerContext(inputParameters);
             ctx.setDdlStatementPath(workflow.getDdlStatementPath());
             ctx.setClassFile(wfClass.file());
             ctx.setClassRole(wfClass.classRole());

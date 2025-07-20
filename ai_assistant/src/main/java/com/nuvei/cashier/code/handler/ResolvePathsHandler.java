@@ -8,7 +8,10 @@ public class ResolvePathsHandler extends AbstractHandler{
     @Override
     public void handle(HandlerContext ctx) throws Exception {
         Path basePath = getBasePath(ctx.getInputParameters().file(), ctx.getClassFile());
-        ctx.setBasePath(basePath);
+        if (Path.of("").equals(ctx.getBasePath())) {
+            // If the base path is empty, change it
+            ctx.setBasePath(basePath);
+        }
 
         fireNext(ctx);
     }
