@@ -8,7 +8,34 @@
     <name>Struts_no_more</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor url="https://www.yourcompany.com">non_official_company</vendor>
+    <vendor url="https://github.com/radtonev/struts_no_more">struts_no_more</vendor>
+    <description>
+        A plugin to automate the development of PPP Admin properties.
+    </description>
+    <change-notes>
+        #### New Features:
+        - **Settings Management**: Added `PppAdminSettings` for managing persistent plugin settings.
+        - **Enhanced Dialog**: Updated `AddPppAdminPropertyDialog` with new fields:
+        - `Hint contents`
+        - `PBI number`
+        - `Cached` checkbox
+        - `Property Type` combo box with dynamic validation.
+
+        #### Validation Improvements:
+        - Integrated field validation for:
+        - Java field names.
+        - PBI numbers (`PBI_12345`, `pbi_12345`, or `12345`).
+        - Positive integers for field sizes.
+        - Property type-specific formats.
+
+        #### Bug Fixes:
+        - Resolved `NullPointerException` in settings retrieval by ensuring proper service registration.
+        - Fixed issues with dynamic field validation in dialogs.
+
+        #### Miscellaneous:
+        - Updated `plugin.xml` to register services and configurable components.
+        - Improved UI responsiveness and error handling.
+    </change-notes>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
@@ -28,9 +55,9 @@
     </extensions>
 
     <actions>
-        <action class="com.nuvei.cashier.plugin.actions.AddPppAdminPropertyAction" description="Opens a dialog to add a new PPP admin property"
-            icon="/icons/addppp.png" id="AddPppAdminPropertyAction"
-            text="Add a New PPP Admin Property">
+        <action class="com.nuvei.cashier.plugin.actions.AddPppAdminPropertyAction"
+            description="Opens a dialog to add a new PPP admin property" icon="/icons/addppp.png"
+            id="AddPppAdminPropertyAction" text="Add a New PPP Admin Property">
             <add-to-group anchor="last" group-id="ProjectViewPopupMenu" />
             <add-to-group anchor="last" group-id="EditorPopupMenu" />
             <add-to-group anchor="last" group-id="Bookmarks.ToolWindow.PopupMenu" />

@@ -1,0 +1,8 @@
+2025-07-12 09:27:33 ERROR AiAssistant:34 - Error: Missing required options: f, fn, ft, sid
+org.apache.commons.cli.MissingOptionException: Missing required options: f, fn, ft, sid
+	at org.apache.commons.cli.DefaultParser.checkRequiredOptions(DefaultParser.java:281)
+	at org.apache.commons.cli.DefaultParser.parse(DefaultParser.java:723)
+	at org.apache.commons.cli.DefaultParser.parse(DefaultParser.java:686)
+	at org.apache.commons.cli.DefaultParser.parse(DefaultParser.java:667)
+	at com.nuvei.cashier.AiAssistantCli.<init>(AiAssistantCli.java:104)
+	at com.nuvei.cashier.AiAssistant.main(AiAssistant.java:22)
