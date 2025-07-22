@@ -1,0 +1,23 @@
+You are given a full Java class file. Your task is to insert a statement that copies
+a property value from a DTO object to a Struts form bean object.
+The property name will be provided.
+
+Rules:
+1. Assume the DTO method follows `is<PropertyName>()` if it's a boolean or `get<PropertyName>()` for other types.
+2. Insert the copy statement into the existing method — preferably near the other lines that copy similar properties.
+3. Use `Boolean.TRUE.equals(...)` for boolean properties to avoid null checks.
+4. Do not add new comments in the code.
+5. Return the full, updated Java class file as your result.
+
+Java class:
+```Java
+{{originalContent}}
+```
+
+Add to this Java class code that copies the value of the following field:
+- Name: {{fieldName}} 
+from the the first class to the second using the getter from the first clas and setter from the second.
+Assume both classes are already defined. Use standard Java conventions.
+
+Return:
+1. The updated Java class.
