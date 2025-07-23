@@ -15,7 +15,7 @@ Java class:
 ```
 
 Add to this Java class code that copies the value of the following field:
-- Name: {{fieldName}} 
+- Name: {{fieldName}}
 from the the first class to the second using the getter from the first clas and setter from the second.
 Assume both classes are already defined. Use standard Java conventions.
 

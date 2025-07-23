@@ -1,0 +1,24 @@
+Previously you modified a Struts JSP form file. Your task is to add a label text and a tooltip
+to a resource file for the newly added field.
+
+Rules:
+1. Get `<bean:message>` key `<form name>.<field name>` from the label tag.
+2. Get the tooltip span with title from key `<form name>.<field name>.tooltip`.
+3. Generate a suitable and short text for the label based on the field name.
+4. The text for the tooltip will be provided. Use is as is.
+5. Find the `<form name>` section in the resource file and add the two key=value strings at the end of the section.
+6. Return the full, updated resource file as your result.
+
+Resource file:
+```Java
+{{originalContent}}
+```
+
+Field:
+- Name: {{fieldName}}
+
+Tooltip:
+- Text: {{fieldTooltip}}
+
+Return:
+1. The updated resource file.

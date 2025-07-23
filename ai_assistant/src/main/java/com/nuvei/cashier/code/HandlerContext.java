@@ -18,6 +18,7 @@ public class HandlerContext {
     private String ddlStatement;
     private Path ddlStatementPath = Path.of("");
 
+    private String previousLlmResponse = "Begin conversation.";
     private String llmResponse;
 
     private Map<String, Object> metadata = new HashMap<>();
@@ -90,6 +91,14 @@ public class HandlerContext {
         this.ddlStatementPath = ddlStatementPath;
     }
 
+    public String getPreviousLlmResponse() {
+        return previousLlmResponse;
+    }
+
+    public void setPreviousLlmResponse(String previousLlmResponse) {
+        this.previousLlmResponse = previousLlmResponse;
+    }
+
     public String getLlmResponse() {
         return llmResponse;
     }
@@ -111,6 +120,7 @@ public class HandlerContext {
         return "HandlerContext [inputParameters=" + inputParameters + ", basePath=" + basePath + ", classFile="
                 + classFile + ", classRole=" + classRole + ", originalContent=" + originalContent + ", modifiedContent="
                 + modifiedContent + ", ddlStatement=" + ddlStatement + ", ddlStatementPath=" + ddlStatementPath
-                + ", llmResponse=" + llmResponse + ", metadata=" + metadata + "]";
+                + ", previousLlmResponse=" + previousLlmResponse + ", llmResponse=" + llmResponse + ", metadata="
+                + metadata + "]";
     }
 }

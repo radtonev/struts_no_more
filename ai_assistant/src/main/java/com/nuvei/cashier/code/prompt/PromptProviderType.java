@@ -9,7 +9,9 @@ public enum PromptProviderType {
     MODIFY_CACHE_DTO_PROMPT(new DefaultPromptProvider("/templates/modify_dto_prompt.tpl.txt"), ClassRole.CACHE_DTO),
     MODIFY_CACHE_LOADER_PROMPT(new DefaultPromptProvider("/templates/copy_property_prompt.tpl.txt"),
             ClassRole.CACHE_LOADER),
-    MODIFY_ACTION_PROMPT(new DefaultPromptProvider("/templates/modify_action_prompt.tpl.txt"), ClassRole.ACTION);
+    MODIFY_ACTION_PROMPT(new DefaultPromptProvider("/templates/modify_action_prompt.tpl.txt"), ClassRole.ACTION),
+    MODIFY_JSP_PROMPT(new DefaultPromptProvider("/templates/modify_jsp_prompt.tpl.txt"), ClassRole.JSP),
+    MODIFY_RESOURCE_PROMPT(new DefaultPromptProvider("/templates/modify_resource_prompt.tpl.txt"), ClassRole.RESOURCE);
 
     private final IPromptProvider promptProvider;
     private final ClassRole classRole;

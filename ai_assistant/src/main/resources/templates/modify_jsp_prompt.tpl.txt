@@ -1,0 +1,23 @@
+You are given a Struts JSP form file. Your task is to add a new field JSP code for the field of the form.
+The field name will be provided.
+
+Rules:
+1. A label tag using `<bean:message>` with key `<form name>.<field name>`.
+2. A tooltip span with title from key `<form name>.<field name>.tooltip`.
+3. The actual form input component (e.g., `<h:text>` or `<h:checkbox>` or else depending on the field type),
+bound to the field.
+4. Add the code fragment at the end of the form but before the form buttons.
+5. Proper spacing (e.g., a `<br/>`) after the field.
+6. Return the full, updated JSP form file as your result.
+
+JSP form:
+```Java
+{{originalContent}}
+```
+
+Add the following field:
+- Name: {{fieldName}}
+- Type: {{fieldType}}
+
+Return:
+1. The updated JSP form.

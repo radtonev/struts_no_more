@@ -10,7 +10,9 @@ import com.nuvei.cashier.code.parser.IResponseParser;
 import com.nuvei.cashier.code.parser.IResponseParserFactory;
 import com.nuvei.cashier.code.prompt.PromptProviderFactory;
 
+import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.internal.Utils;
 
 public class ModifyFileHandler extends AbstractHandler {
 
@@ -30,13 +32,12 @@ public class ModifyFileHandler extends AbstractHandler {
             return;
         }
         String prompt = PromptProviderFactory.createPromptProvider(ctx.getClassRole()).getPrompt(getVariables(ctx));
-        ctx.setLlmResponse(codeAssistant.modifyCode(UserMessage.from(prompt)));
+        if (Utils.isNotNullOrBlank(ctx.getLlmResponse())) {
+            ctx.setPreviousLlmResponse(ctx.getLlmResponse());
+        }
+        ctx.setLlmResponse(codeAssistant.modifyCode(SystemMessage.from(ctx.getPreviousLlmResponse()), UserMessage.from(prompt)));
         IResponseParser<String> parser = parserFactory.createParser("java");
         ctx.setModifiedContent(parser.parse(ctx.getLlmResponse()));
-        if (ClassRole.ENTITY.equals(ctx.getClassRole())) {
-            parser = parserFactory.createParser("sql");
-            ctx.setDdlStatement(parser.parse(ctx.getLlmResponse()));
-        }
 
         fireNext(ctx);
     }
