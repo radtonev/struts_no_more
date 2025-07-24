@@ -19,10 +19,9 @@ public class MerchantSiteWorkflow implements IWorkflow {
             new WorkflowClass(Path.of(
                     "persistence/src/main/java/com/safecharge/ppp/persistence/cache/merchantsitesettings/MerchantSiteSettingsCacheLoader.java"),
                     ClassRole.CACHE_LOADER),
-            //TODO: Uncomment when the class is available
-            // new WorkflowClass(Path.of(
-            // "persistence/../ppp/src/main/java/com/safecharge/ppp/bean/MerchantSiteManagerBean.java"),
-            // ClassRole.SERVICE),
+            new WorkflowClass(Path.of(
+                    "persistence/../ppp/src/main/java/com/safecharge/ppp/bean/MerchantSiteManagerBean.java"),
+                    ClassRole.SERVICE),
             new WorkflowClass(Path.of("../Cashier Admin/src/main/java/com/safecharge/ppp/api/web/service/dto/output/MerchantSiteDTO.java"),
                     ClassRole.DTO),
             new WorkflowClass(Path.of("../Cashier Admin/src/main/java/com/safecharge/pppadmin/struts/form/admin/MerchantSiteForm.java"),
