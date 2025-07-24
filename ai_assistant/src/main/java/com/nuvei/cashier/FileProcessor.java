@@ -1,5 +1,6 @@
 package com.nuvei.cashier;
 
+import dev.langchain4j.internal.Utils;
 import java.util.Objects;
 
 import com.nuvei.cashier.code.HandlerContext;
@@ -30,6 +31,14 @@ public class FileProcessor {
             ctx.setDdlStatementPath(workflow.getDdlStatementPath());
             ctx.setClassFile(wfClass.file());
             ctx.setClassRole(wfClass.classRole());
+
+            ctx.setPreviousLlmResponse(ctx.getLlmResponse());
+
+            // Empty some context variables
+            ctx.setOriginalContent(null);
+            ctx.setModifiedContent(null);
+            ctx.setDdlStatement(null);
+            ctx.setLlmResponse(null);
 
             // Start processing the workflow
             pipeline.handle(ctx);

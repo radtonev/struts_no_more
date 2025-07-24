@@ -1,5 +1,9 @@
 package com.nuvei.cashier.code.handler;
 
+import dev.langchain4j.data.message.ChatMessage;
+import dev.langchain4j.internal.Utils;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.nuvei.cashier.ai.ICodeAssistant;
@@ -12,7 +16,6 @@ import com.nuvei.cashier.code.prompt.PromptProviderFactory;
 
 import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.UserMessage;
-import dev.langchain4j.internal.Utils;
 
 public class ModifyFileHandler extends AbstractHandler {
 
@@ -32,10 +35,12 @@ public class ModifyFileHandler extends AbstractHandler {
             return;
         }
         String prompt = PromptProviderFactory.createPromptProvider(ctx.getClassRole()).getPrompt(getVariables(ctx));
-        if (Utils.isNotNullOrBlank(ctx.getLlmResponse())) {
-            ctx.setPreviousLlmResponse(ctx.getLlmResponse());
+        List<ChatMessage> messages = new ArrayList<>();
+        if (Utils.isNotNullOrBlank(ctx.getPreviousLlmResponse())) {
+            messages.add(SystemMessage.from(String.format("%s:\r\n %s", "Previous response", ctx.getPreviousLlmResponse())));
         }
-        ctx.setLlmResponse(codeAssistant.modifyCode(SystemMessage.from(ctx.getPreviousLlmResponse()), UserMessage.from(prompt)));
+        messages.add(UserMessage.from(prompt));
+        ctx.setLlmResponse(codeAssistant.modifyCode(messages.toArray(new ChatMessage[0])));
         IResponseParser<String> parser = parserFactory.createParser("java");
         ctx.setModifiedContent(parser.parse(ctx.getLlmResponse()));
 

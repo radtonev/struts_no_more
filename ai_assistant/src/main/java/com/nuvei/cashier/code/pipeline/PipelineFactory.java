@@ -18,7 +18,7 @@ public class PipelineFactory {
         IHandler resolve = new ResolvePathsHandler();
         IHandler read = new ReadFileHandler();
         IHandler modify = new ModifyFileHandler(codeAssistant, parserFactory);
-        IHandler writeDdl = new WriteDdlFileHandler(parserFactory, "mdb");
+        IHandler writeDdl = new WriteDdlFileHandler(parserFactory, "dbm");
         IHandler write = new WriteFileHandler();
 
         // Chain the handlers together

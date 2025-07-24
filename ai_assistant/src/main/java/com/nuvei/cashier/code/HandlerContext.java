@@ -18,7 +18,7 @@ public class HandlerContext {
     private String ddlStatement;
     private Path ddlStatementPath = Path.of("");
 
-    private String previousLlmResponse = "Begin conversation.";
+    private String previousLlmResponse;
     private String llmResponse;
 
     private Map<String, Object> metadata = new HashMap<>();

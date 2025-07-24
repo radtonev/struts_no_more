@@ -1,5 +1,6 @@
 package com.nuvei.cashier;
 
+import org.apache.commons.cli.MissingOptionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,11 +26,14 @@ public class AiAssistant {
             ICodeAssistant codeAssistant = new CodeAssistant(model);
 
             IResponseParserFactory<String> parserFactory = new MarkdownResponseParserFactory();
-            
+
             IHandler pipeline = PipelineFactory.createPipeline(codeAssistant, parserFactory);
             FileProcessor fileProcessor = new FileProcessor(pipeline);
 
             fileProcessor.process(cli.getInputParameters());
+        } catch (MissingOptionException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
         } catch (Exception e) {
             logger.error("Error: {}", e.getMessage(), e);
             System.exit(255);

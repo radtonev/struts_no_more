@@ -1,4 +1,3 @@
-
 I have two Java classes: one is an entity for example, and the other is a DTO.
 Both classes have properties with the same names and compatible types.
 Here is the class that does the job:

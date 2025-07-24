@@ -29,6 +29,8 @@ public class MerchantSiteWorkflow implements IWorkflow {
                     ClassRole.DTO),
             new WorkflowClass(Path.of("../Cashier Admin/src/main/java/com/safecharge/pppadmin/struts/action/admin/EditMerchantSiteAction.java"),
                     ClassRole.ACTION),
+            new WorkflowClass(Path.of("../Cashier Admin/src/main/java/com/safecharge/pppadmin/struts/action/admin/SaveMerchantSiteAction.java"),
+                    ClassRole.ACTION),
             new WorkflowClass(Path.of("../Cashier Admin/src/main/webapp/admin/merchantsiteform.jsp"),
                     ClassRole.JSP),
             new WorkflowClass(Path.of("../Cashier Admin/src/main/resources/ApplicationResources.properties"), 
