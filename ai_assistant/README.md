@@ -79,7 +79,7 @@ mvn test
 
 - LangChain4j (Google Gemini, Core)
 - SLF4J & Log4j
-- Commons CLI
+- Apache Commons CLI
 - JUnit Jupiter
 
 ## License
