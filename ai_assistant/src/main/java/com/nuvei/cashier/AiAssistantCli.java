@@ -25,7 +25,7 @@ public class AiAssistantCli {
                 .getLocation()
                 .getPath())
                 .getName();
-        String cmdLineSyntax = "java -jar " + jarName + " [options]";
+        String cmdLineSyntax = "java -jar " + jarName;
 
         try {
             Options options = getHelpOptions();
