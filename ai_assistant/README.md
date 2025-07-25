@@ -47,7 +47,7 @@ java -jar ai-assistant-0.1.jar
 ```
 
 ```
-usage: java -jar ai-assistant-0.1.jar [options] [-c] -f <arg> [-fd <arg>]
+usage: java -jar ai-assistant-0.1.jar [-c] -f <arg> [-fd <arg>]
        -fn <arg> [-fs <arg>] -ft <arg> [-ftt <arg>] [-h] [-n] -sid <arg>
  -c,--fieldCacheable             Is field cacheable?
  -f,--file <arg>                 Path to the file to modify
