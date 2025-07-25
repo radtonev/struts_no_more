@@ -22,7 +22,7 @@ public class WriteFileHandler extends AbstractHandler {
         if (ctx.getModifiedContent() != null) {
             // Write the modified content back to the file
             // TODO: Write to the same file
-            Files.writeString(classFile.getParent().resolve(classFile.getFileName() + ".new"), ctx.getModifiedContent());
+            Files.writeString(classFile, ctx.getModifiedContent());
 
             logger.debug("Write modified content.");
         }
