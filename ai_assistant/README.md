@@ -29,15 +29,23 @@ This will generate `ai-assistant-0.1.jar` in the `target/` directory.
 
 ### Run
 
-To use the Google Gemini AI API set the API key as an environment variable:
-```
+To use the Google Gemini AI API, set the API key as an environment variable:
+
+##### Windows
+```cmd
 set GEMINI_API_KEY=<Your API key>
+```
+
+##### Linux
+```shell
+export GEMINI_API_KEY="<Your API key>"
 ```
 
 Refer to the CLI help for available options:
 ```
-java -jar target/ai-assistant-0.1.jar
+java -jar ai-assistant-0.1.jar
 ```
+
 ```
 usage: java -jar ai-assistant-0.1.jar [options] [-c] -f <arg> [-fd <arg>]
        -fn <arg> [-fs <arg>] -ft <arg> [-ftt <arg>] [-h] [-n] -sid <arg>
@@ -60,7 +68,7 @@ Supposingly modules subject to modifications are in `C:\Projects\java\sample` fo
 To add new field with name `barcode`, type `String`, size 100, cacheable, not null concerning story id 123456789 for example
 start the assistant:
 ```
-java -jar target/ai-assistant-0.1.jar -f "C:\Projects\java\sample\Cashier\persistence\src\main\java\com\safecharge\ppp\persistence\dto\entities\MerchantSite.java" -fn barcode -ft String -fs 100 -sid 123456789 -c -n
+java -jar ai-assistant-0.1.jar -f "C:\Projects\java\sample\Cashier\persistence\src\main\java\com\safecharge\ppp\persistence\dto\entities\MerchantSite.java" -fn barcode -ft String -fs 100 -sid 123456789 -c -n
 ```
 
 ## Configuration
