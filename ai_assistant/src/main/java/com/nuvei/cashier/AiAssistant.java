@@ -31,7 +31,6 @@ public class AiAssistant {
 
             fileProcessor.process(cli.getInputParameters());
         } catch (MissingOptionException e) {
-            System.out.println(e.getMessage());
             System.exit(1);
         } catch (Exception e) {
             logger.error("Error: {}", e.getMessage(), e);
