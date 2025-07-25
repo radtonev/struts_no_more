@@ -1,12 +1,11 @@
 package com.nuvei.cashier.ai.util;
 
+import dev.langchain4j.model.input.PromptTemplate;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import dev.langchain4j.model.input.PromptTemplate;
 
 public class TemplateUtil {
 

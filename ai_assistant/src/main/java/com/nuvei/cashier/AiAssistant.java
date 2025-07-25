@@ -11,7 +11,6 @@ import com.nuvei.cashier.code.handler.IHandler;
 import com.nuvei.cashier.code.parser.IResponseParserFactory;
 import com.nuvei.cashier.code.parser.MarkdownResponseParserFactory;
 import com.nuvei.cashier.code.pipeline.PipelineFactory;
-
 import dev.langchain4j.model.chat.ChatModel;
 
 public class AiAssistant {

@@ -11,6 +11,14 @@ public abstract class AbstractHandler implements IHandler {
         this.next = next;
     }
 
+    @Override
+    public void handle(HandlerContext ctx) throws Exception {
+        process(ctx);
+        fireNext(ctx);
+    }
+
+    protected abstract void process(HandlerContext ctx) throws Exception;
+
     protected void fireNext(HandlerContext ctx) throws Exception {
         if (next != null) {
             next.handle(ctx);

@@ -1,7 +1,5 @@
 package com.nuvei.cashier;
 
-import java.nio.file.Path;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -11,6 +9,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import com.nuvei.cashier.code.InputParameters;
+import java.nio.file.Path;
 
 public class AiAssistantCli {
 

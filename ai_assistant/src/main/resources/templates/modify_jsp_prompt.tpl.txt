@@ -11,7 +11,7 @@ bound to the field.
 6. Return the full, updated JSP form file as your result.
 
 JSP form:
-```Java
+```JSP
 {{originalContent}}
 ```
 

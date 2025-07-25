@@ -1,12 +1,11 @@
 package com.nuvei.cashier.ai.client;
 
-import java.time.Duration;
-
 import org.slf4j.Logger;
 
 import dev.langchain4j.internal.Utils;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
+import java.time.Duration;
 
 public class GeminiAssistant {
 

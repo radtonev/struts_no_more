@@ -23,4 +23,4 @@ Extract the table name from the entity's class @Table annotation and use it as t
 
 Return:
 1. The updated entity Java class.
-2. The generated ALTER TABLE statement.
+2. The generated ALTER TABLE ADD COLUMN statement.

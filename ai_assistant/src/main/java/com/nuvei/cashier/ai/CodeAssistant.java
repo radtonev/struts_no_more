@@ -1,7 +1,6 @@
 package com.nuvei.cashier.ai;
 
 import com.nuvei.cashier.ai.util.TemplateUtil;
-
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.service.AiServices;

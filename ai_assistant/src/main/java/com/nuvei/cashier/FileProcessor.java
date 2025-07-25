@@ -1,7 +1,7 @@
 package com.nuvei.cashier;
 
-import dev.langchain4j.internal.Utils;
-import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.nuvei.cashier.code.HandlerContext;
 import com.nuvei.cashier.code.InputParameters;
@@ -9,8 +9,11 @@ import com.nuvei.cashier.code.handler.IHandler;
 import com.nuvei.cashier.workflow.IWorkflow;
 import com.nuvei.cashier.workflow.WorkflowClass;
 import com.nuvei.cashier.workflow.WorkflowFactory;
+import java.util.Objects;
 
 public class FileProcessor {
+
+    private static final Logger logger = LoggerFactory.getLogger(FileProcessor.class);
 
     private final IHandler pipeline;
 
@@ -41,7 +44,11 @@ public class FileProcessor {
             ctx.setLlmResponse(null);
 
             // Start processing the workflow
+            logger.debug("Starting pipeline for file {}", ctx.getClassFile());
+
             pipeline.handle(ctx);
+
+            logger.debug("Exiting pipeline");
         }
 
     }

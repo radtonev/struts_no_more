@@ -1,5 +1,7 @@
 package com.nuvei.cashier.code.parser;
 
+import dev.langchain4j.internal.Utils;
+
 public class MarkdownResponseParser implements IResponseParser<String> {
 
     private final String language;
@@ -14,6 +16,10 @@ public class MarkdownResponseParser implements IResponseParser<String> {
 
     @Override
     public String parse(String llmResponse) {
+        if (Utils.isNullOrEmpty(llmResponse)) {
+            return null;
+        }
+
         llmResponse = llmResponse.replaceAll("(?i)" + language, language);
         String fence = "```" + language;
         int start = llmResponse.indexOf(fence);

@@ -1,10 +1,8 @@
 package com.nuvei.cashier.code.prompt;
 
-import java.util.Map;
-
 import com.nuvei.cashier.ai.util.TemplateUtil;
-
 import dev.langchain4j.model.input.PromptTemplate;
+import java.util.Map;
 
 public abstract class AbstractPromptProvider implements IPromptProvider {
 

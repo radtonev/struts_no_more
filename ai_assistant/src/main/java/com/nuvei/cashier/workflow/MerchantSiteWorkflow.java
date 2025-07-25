@@ -1,9 +1,8 @@
 package com.nuvei.cashier.workflow;
 
+import com.nuvei.cashier.code.ClassRole;
 import java.nio.file.Path;
 import java.util.List;
-
-import com.nuvei.cashier.code.ClassRole;
 
 public class MerchantSiteWorkflow implements IWorkflow {
 
