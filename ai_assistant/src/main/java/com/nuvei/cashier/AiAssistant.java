@@ -1,6 +1,6 @@
 package com.nuvei.cashier;
 
-import org.apache.commons.cli.MissingOptionException;
+import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,7 @@ public class AiAssistant {
             FileProcessor fileProcessor = new FileProcessor(pipeline);
 
             fileProcessor.process(cli.getInputParameters());
-        } catch (MissingOptionException e) {
+        } catch (ParseException e) {
             System.exit(1);
         } catch (Exception e) {
             logger.error("Error: {}", e.getMessage(), e);
