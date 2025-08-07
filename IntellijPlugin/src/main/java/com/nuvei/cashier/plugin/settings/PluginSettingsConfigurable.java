@@ -13,14 +13,17 @@ import java.awt.*;
 
 public class PluginSettingsConfigurable implements Configurable {
 
-    private JTextField directoryField;
-    private JPanel panel;
+    private final JTextField directoryField = new JTextField();
+    private final JTextField geminiApiKeyField = new JTextField();
+    private final JTextField geminiModelField = new JTextField();
 
     @Override
     public @Nullable JComponent createComponent() {
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(getPppAdminPathPanel());
+        panel.add(getGeminiApiKeyPanel());
+        panel.add(getGeminiModelPanel());
         return panel;
     }
 
@@ -29,10 +32,9 @@ public class PluginSettingsConfigurable implements Configurable {
         JPanel pppAdminAddress = new JPanel();
 
         pppAdminAddress.setLayout(new BoxLayout(pppAdminAddress, BoxLayout.X_AXIS));
+        pppAdminAddress.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 
         JLabel label = new JLabel("PPP Admin Project Directory:");
-        directoryField = new JTextField();
-        directoryField.setPreferredSize(new Dimension(300, 25));
         directoryField.setToolTipText("Enter the directory path for the PPP Admin project.");
 
         JButton srcButton = getSrcButton();
@@ -40,7 +42,39 @@ public class PluginSettingsConfigurable implements Configurable {
         pppAdminAddress.add(label);
         pppAdminAddress.add(directoryField);
         pppAdminAddress.add(srcButton);
+        pppAdminAddress.add(Box.createHorizontalGlue());
+
         return pppAdminAddress;
+    }
+
+    @NotNull
+    private JPanel getGeminiApiKeyPanel() {
+        JPanel geminiApiKeyPanel = new JPanel();
+        geminiApiKeyPanel.setLayout(new BoxLayout(geminiApiKeyPanel, BoxLayout.X_AXIS));
+
+        JLabel label = new JLabel("Gemini API Key:");
+        geminiApiKeyField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        geminiApiKeyField.setToolTipText("Enter the Gemini API key.");
+
+        geminiApiKeyPanel.add(label);
+        geminiApiKeyPanel.add(geminiApiKeyField);
+
+        return geminiApiKeyPanel;
+    }
+
+    @NotNull
+    private JPanel getGeminiModelPanel() {
+        JPanel geminiModelPanel = new JPanel();
+        geminiModelPanel.setLayout(new BoxLayout(geminiModelPanel, BoxLayout.X_AXIS));
+
+        JLabel label = new JLabel("Gemini Model:");
+        geminiModelField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        geminiModelField.setToolTipText("Enter the Gemini model name.");
+
+        geminiModelPanel.add(label);
+        geminiModelPanel.add(geminiModelField);
+
+        return geminiModelPanel;
     }
 
     @NotNull
@@ -61,23 +95,29 @@ public class PluginSettingsConfigurable implements Configurable {
     @Override
     public boolean isModified() {
         StrutsNoMoreSettings settings = ApplicationManager.getApplication().getService(StrutsNoMoreSettings.class);
-        return !directoryField.getText().equals(settings.getPppAdminDirectory());
+        return !directoryField.getText().equals(settings.getPppAdminDirectory()) ||
+                !geminiApiKeyField.getText().equals(settings.getGeminiApiKey()) ||
+                !geminiModelField.getText().equals(settings.getGeminiModel());
     }
 
     @Override
     public void apply() {
         StrutsNoMoreSettings settings = ApplicationManager.getApplication().getService(StrutsNoMoreSettings.class);
         settings.setPppAdminDirectory(directoryField.getText());
+        settings.setGeminiApiKey(geminiApiKeyField.getText());
+        settings.setGeminiModel(geminiModelField.getText());
     }
 
     @Override
     public void reset() {
         StrutsNoMoreSettings settings = ApplicationManager.getApplication().getService(StrutsNoMoreSettings.class);
         directoryField.setText(settings.getPppAdminDirectory());
+        geminiApiKeyField.setText(settings.getGeminiApiKey());
+        geminiModelField.setText(settings.getGeminiModel());
     }
 
     @Override
     public String getDisplayName() {
-        return "PPP Admin Settings";
+        return "Struts No More Settings";
     }
 }

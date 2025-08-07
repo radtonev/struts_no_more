@@ -12,18 +12,22 @@ public class GeminiAssistant {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(GeminiAssistant.class);
 
     // We need a model with at least output tokens: 65,536
-    private static final String DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17";
+    public static final String DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17";
 
-    public static ChatModel getModel(String modelName) {
+    public static ChatModel getModel(String modelName, String apiKey) {
         logger.debug("Using Gemini model: {}", modelName);
 
         return GoogleAiGeminiChatModel.builder()
-                .apiKey(System.getenv("GEMINI_API_KEY"))
+                .apiKey(apiKey)
                 .modelName(modelName)
                 .timeout(Duration.ofSeconds(10))
                 .maxRetries(3)
                 .logRequestsAndResponses(false)
                 .build();
+    }
+
+    public static ChatModel getModel(String modelName) {
+        return getModel(modelName, System.getenv("GEMINI_API_KEY"));
     }
 
     public static ChatModel getModel() {

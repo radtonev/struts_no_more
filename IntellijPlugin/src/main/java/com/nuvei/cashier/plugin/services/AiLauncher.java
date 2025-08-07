@@ -11,6 +11,8 @@ import com.nuvei.cashier.code.parser.IResponseParserFactory;
 import com.nuvei.cashier.code.parser.MarkdownResponseParserFactory;
 import com.nuvei.cashier.code.pipeline.PipelineFactory;
 import com.nuvei.cashier.plugin.actions.AddPppAdminPropertyDialog;
+import com.nuvei.cashier.plugin.settings.StrutsNoMoreSettings;
+import dev.langchain4j.internal.Utils;
 import dev.langchain4j.model.chat.ChatModel;
 
 import java.nio.file.Paths;
@@ -18,7 +20,7 @@ import java.nio.file.Paths;
 public class AiLauncher {
     private static final Logger LOG = Logger.getInstance(AiLauncher.class);
 
-    public void launch(AddPppAdminPropertyDialog dialog, String filePath, String pppAdminDirectory) throws Exception {
+    public void launch(AddPppAdminPropertyDialog dialog, String filePath, StrutsNoMoreSettings settings) throws Exception {
         InputParameters inputParameters = new InputParameters(Paths.get(filePath),
                 dialog.getPropertyName(), dialog.getType(),
                 dialog.getFieldSize(), dialog.getHint(), dialog.getDefaultValue(), dialog.isCached(),
@@ -26,7 +28,8 @@ public class AiLauncher {
         HandlerContext context = new HandlerContext(inputParameters);
         LOG.info("Context created: " + context);
 
-        ChatModel model = GeminiAssistant.getModel();
+        String modelName = Utils.getOrDefault(settings.getGeminiModel(), GeminiAssistant.DEFAULT_GEMINI_MODEL);
+        ChatModel model = GeminiAssistant.getModel(modelName, settings.getGeminiApiKey());
         ICodeAssistant codeAssistant = new CodeAssistant(model);
 
         IResponseParserFactory<String> parserFactory = new MarkdownResponseParserFactory();

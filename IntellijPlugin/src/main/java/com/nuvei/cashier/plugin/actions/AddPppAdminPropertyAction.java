@@ -15,6 +15,7 @@ import com.nuvei.cashier.plugin.utils.LogStreamer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -43,6 +44,11 @@ public class AddPppAdminPropertyAction extends AnAction {
         String className = file.getNameWithoutExtension();
         AddPppAdminPropertyDialog dialog = new AddPppAdminPropertyDialog(className);
         try {
+            StrutsNoMoreSettings settings = ApplicationManager.getApplication().getService(StrutsNoMoreSettings.class);
+            if (settings.getGeminiApiKey() == null || settings.getGeminiApiKey().isEmpty()) {
+                Messages.showErrorDialog(project, "Please first enter a Gemini API key in the settings.", "Gemini API Key Required!");
+                dialog.close(1);
+            }
             if (dialog.showAndGet()) {
                 generateFiles(project, file, dialog);
             }
@@ -77,25 +83,25 @@ public class AddPppAdminPropertyAction extends AnAction {
     }
 
     private void generateFiles(Project project, VirtualFile file, AddPppAdminPropertyDialog dialog) {
-        String pppAdminDirectory = ApplicationManager.getApplication().getService(StrutsNoMoreSettings.class).getPppAdminDirectory();
+        StrutsNoMoreSettings settings = ApplicationManager.getApplication().getService(StrutsNoMoreSettings.class);
         String filePath = file.getCanonicalPath();
         if (filePath == null) {
             Messages.showErrorDialog(project, "File path is null. Cannot generate files.", "Error");
             return;
         }
-        LoadingDialog loadingDialog = new LoadingDialog(dialog.getLoadingMessage(file, pppAdminDirectory));
+        LoadingDialog loadingDialog = new LoadingDialog(dialog.getLoadingMessage(file, settings.getPppAdminDirectory()));
         LogStreamer logStreamer = new LogStreamer(loadingDialog.getLogsTextArea());
         try {
             logStreamer.startStreaming();
             loadingDialog.startLoading(() -> {
                 try {
-                    aiLauncher.launch(dialog, filePath, pppAdminDirectory);
+                    aiLauncher.launch(dialog, filePath, settings);
                 } catch (Exception e) {
-                    Messages.showErrorDialog(e.getMessage(), "Failed Property Generation.");
+                    loadingDialog.getLogsTextArea().setText("Failed Property Generation." + Arrays.toString(e.getStackTrace()));
                 }
             });
         } catch (Exception e) {
-            Messages.showErrorDialog(e.getMessage(), "Something Went Wrong.");
+            loadingDialog.getLogsTextArea().setText("Something went wrong." + Arrays.toString(e.getStackTrace()));
         } finally {
             logStreamer.stopStreaming();
         }
